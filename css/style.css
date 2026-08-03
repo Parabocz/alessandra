@@ -394,30 +394,40 @@ body {
         padding: 1.5rem 2rem;
     }
     .hero {
-        padding: 6rem 2rem 0;
+        height: auto;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
     }
     .hero-img-bg {
-        object-position: 70% center; /* Adjust framing for portrait */
+        position: relative;
+        width: 100%;
+        height: 60vh;
+        order: 2; /* Image below the text */
+        object-position: 70% center;
         z-index: 0;
     }
     .hero-content-wrapper {
-        padding: 0 1rem;
+        padding: 6rem 2rem 3rem;
+        order: 1; /* Text above the image */
+        background: var(--color-bg); /* Solid cream background */
+        width: 100%;
         position: relative;
         z-index: 2;
     }
     .hero-content {
         mix-blend-mode: normal;
-        background: rgba(248, 245, 241, 0.7);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        padding: 2.5rem 1.5rem;
-        border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
     }
     .hero-left {
         width: 100%;
-        margin-bottom: 2rem;
+        margin-bottom: 0; /* Margin removed since it's stacked cleanly */
     }
     .main-headline {
         font-size: 3rem;
