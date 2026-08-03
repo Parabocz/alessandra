@@ -74,35 +74,66 @@ gsap.to('.hero-img-bg', {
     }
 });
 
-// Sticky Section
-ScrollTrigger.create({
-    trigger: '.sticky-section',
-    start: 'top top',
-    end: 'bottom bottom',
-    pin: '.sticky-left',
-});
+// Sticky Section & Mobile Adjustments via matchMedia
+let mm = gsap.matchMedia();
 
-const pillars = gsap.utils.toArray('.pillar');
-pillars.forEach(pillar => {
+mm.add("(min-width: 1025px)", () => {
+    // Desktop: Pin the left side and fade pillars using active class
     ScrollTrigger.create({
-        trigger: pillar,
-        start: 'top center+=100',
-        end: 'bottom center-=100',
-        toggleClass: 'active',
-        // markers: true
+        trigger: '.sticky-section',
+        start: 'top top',
+        end: 'bottom bottom',
+        pin: '.sticky-left',
+    });
+
+    const pillars = gsap.utils.toArray('.pillar');
+    pillars.forEach(pillar => {
+        ScrollTrigger.create({
+            trigger: pillar,
+            start: 'top center+=100',
+            end: 'bottom center-=100',
+            toggleClass: 'active'
+        });
+    });
+
+    gsap.from('.sticky-left-content', {
+        y: 50,
+        opacity: 0,
+        duration: 1.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+            trigger: '.sticky-section',
+            start: 'top 70%'
+        }
     });
 });
 
-// Sticky Left Entrance Animation
-gsap.from('.sticky-left-content', {
-    y: 50,
-    opacity: 0,
-    duration: 1.2,
-    ease: 'power3.out',
-    scrollTrigger: {
-        trigger: '.sticky-section',
-        start: 'top 70%'
-    }
+mm.add("(max-width: 1024px)", () => {
+    // Mobile: No pinning, just simple fade ups
+    gsap.from('.sticky-left-content', {
+        y: 30,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+            trigger: '.sticky-left',
+            start: 'top 80%'
+        }
+    });
+
+    const pillars = gsap.utils.toArray('.pillar');
+    pillars.forEach(pillar => {
+        gsap.to(pillar, {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: pillar,
+                start: 'top 85%'
+            }
+        });
+    });
 });
 
 // Closing Section Entrance Animation
